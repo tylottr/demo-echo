@@ -11,3 +11,4 @@ tests/
 lint.xml
 
 azure-pipelines.yml
+.github
