@@ -4,7 +4,7 @@
 name: 'Release Container App'
 
 on:
-  workflow_call:
+  workflow_dispatch:
     inputs:
       container_image:
         type: string
