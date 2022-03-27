@@ -1,0 +1,41 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: demo-message
+  labels:
+    app: demo-message
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: demo-message
+  template:
+    metadata:
+      labels:
+        app: demo-message
+    spec:
+      containers:
+      - name: app
+        image: tctestacr.azurecr.io/demo-message:latest
+        ports:
+        - name: http
+          containerPort: 3000
+        env:
+        - name: MESSAGE
+          value: "Helloooo"
+        resources:
+          requests:
+            cpu: "200m"
+            memory: 50Mi
+          limits:
+            cpu: "400m"
+            memory: 250Mi
+        readinessProbe:
+          initialDelaySeconds: 5
+          tcpSocket:
+            port: http
+        livenessProbe:
+          initialDelaySeconds: 15
+          tcpSocket:
+            port: http
