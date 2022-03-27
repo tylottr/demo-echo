@@ -9,7 +9,7 @@ on:
       container_image:
         type: string
         required: true
-        default: tctestacr.azurecr.io/demo-message:${{ github.ref_name }}
+        default: tctestacr.azurecr.io/demo-message:main
       environment_name:
         type: string
         required: true
