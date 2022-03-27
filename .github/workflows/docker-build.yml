@@ -1,0 +1,67 @@
+name: 'Build Container Image'
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ['*']
+
+env:
+  imageName: demo-express
+  containerRegistry: tctestacr.azurecr.io
+  nodeVersion: 14.x
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3.0.0
+      with:
+        node-version: $nodeVersion
+    - name: Lint
+      run: |-
+        npm ci; npm run lint:ci
+    - uses: dorny/test-reporter@1.5.0
+      with:
+        name: Lint
+        artifact: lint.xml
+
+  unit:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - uses: actions/setup-node@v3.0.0
+      with:
+        node-version: $nodeVersion
+    - name: Unit
+      run: |-
+        npm ci; npm run test:ci
+    - uses: dorny/test-reporter@1.5.0
+      with:
+        name: Unit
+        artifact: test-results.xml
+
+  build:
+    runs-on: ubuntu-latest
+    needs: [lint, unit]
+    steps:
+    - uses: actions/checkout@v2
+    - uses: azure/docker-login@v1
+      with:
+        login-server: ${{ env.containerRegistry }}
+        username: ${{ secrets.registryUser }} 
+        password: ${{ secrets.registryPass }}
+    - name: Build
+      run: |-
+        docker build . \
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
+    - name: Push
+      run: |-
+        docker push \
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
+
