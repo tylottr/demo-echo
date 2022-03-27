@@ -55,12 +55,17 @@ jobs:
         username: ${{ secrets.registryUser }} 
         password: ${{ secrets.registryPass }}
     - name: Build
-      run: |-
-        docker build . \
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest \
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }} \
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
+      uses: docker/build-push-action@v2.10.0
+      with:
+        tags: |
+          ${{ env.containerRegistry }}/${{ env.imageName }}:latest
+          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
     - name: Push
-      run: |-
-        docker push \
-          -a ${{ env.containerRegistry }}/${{ env.imageName }}
+      uses: docker/build-push-action@v2.10.0
+      with:
+        tags: |
+          ${{ env.containerRegistry }}/${{ env.imageName }}:latest
+          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
+        push: true
