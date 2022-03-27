@@ -18,7 +18,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v3.0.0
       with:
-        node-version: $nodeVersion
+        node-version: ${{ env.nodeVersion }}
     - name: Lint
       run: |-
         npm ci; npm run lint:ci
@@ -33,7 +33,7 @@ jobs:
     - uses: actions/checkout@v2
     - uses: actions/setup-node@v3.0.0
       with:
-        node-version: $nodeVersion
+        node-version: ${{ env.nodeVersion }}
     - name: Unit
       run: |-
         npm ci; npm run test:ci
@@ -64,4 +64,3 @@ jobs:
           -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest
           -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
           -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
-
