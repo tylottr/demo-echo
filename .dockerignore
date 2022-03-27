@@ -1,0 +1,13 @@
+.git
+.gitignore
+Dockerfile
+docker-compose.yml
+
+node_modules
+npm-debug.log
+tests/
+.eslintrc.yml
+.test-results.xml
+lint.xml
+
+azure-pipelines.yml
