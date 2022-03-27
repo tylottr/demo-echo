@@ -22,7 +22,7 @@ jobs:
     - name: Lint
       run: |-
         npm ci; npm run lint:ci
-    - uses: dorny/test-reporter@1.5.0
+    - uses: dorny/test-reporter@v1.5.0
       with:
         name: Lint
         artifact: lint.xml
@@ -37,7 +37,7 @@ jobs:
     - name: Unit
       run: |-
         npm ci; npm run test:ci
-    - uses: dorny/test-reporter@1.5.0
+    - uses: dorny/test-reporter@v1.5.0
       with:
         name: Unit
         artifact: test-results.xml
