@@ -25,7 +25,7 @@ env:
 jobs:
   deploy:
     runs-on: ubuntu-latest
-    environment: ${{ inputs.environment_name }}
+    environment: ${{ github.event.inputs.environment_name }}
     steps:
     - uses: actions/checkout@v2
     - uses: Azure/k8s-set-context@v2
@@ -38,8 +38,8 @@ jobs:
         kustomizationPath: ${{ env.manifestsPath }}
     - uses: Azure/k8s-deploy@v3.0
       with:
-        namespace: ${{ inputs.namespace }}
+        namespace: ${{ github.event.inputs.namespace }}
         manifests: ${{ steps.bake.outputs.manifestsBundle }}
         images: |
-          ${{ inputs.containerImage }}
+          ${{ github.event.inputs.containerImage }}
         
