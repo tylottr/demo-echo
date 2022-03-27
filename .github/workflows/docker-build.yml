@@ -26,6 +26,7 @@ jobs:
       with:
         name: Lint
         path: lint.xml
+        reporter: java-junit
 
   unit:
     runs-on: ubuntu-latest
@@ -41,6 +42,7 @@ jobs:
       with:
         name: Unit
         path: test-results.xml
+        reporter: java-junit
 
   build:
     runs-on: ubuntu-latest
