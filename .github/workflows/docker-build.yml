@@ -7,7 +7,7 @@ on:
     tags: ['*']
 
 env:
-  imageName: demo-express
+  imageName: demo-message
   containerRegistry: tctestacr.azurecr.io
   nodeVersion: 14.x
 
@@ -55,13 +55,6 @@ jobs:
         username: ${{ secrets.registryUser }} 
         password: ${{ secrets.registryPass }}
     - name: Build
-      uses: docker/build-push-action@v2.10.0
-      with:
-        tags: |
-          ${{ env.containerRegistry }}/${{ env.imageName }}:latest
-          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
-          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
-    - name: Push
       uses: docker/build-push-action@v2.10.0
       with:
         tags: |
