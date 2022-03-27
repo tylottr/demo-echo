@@ -63,6 +63,4 @@ jobs:
     - name: Push
       run: |-
         docker push \
-          ${{ env.containerRegistry }}/${{ env.imageName }}:latest \
-          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }} \
-          ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
+          -a ${{ env.containerRegistry }}/${{ env.imageName }}
