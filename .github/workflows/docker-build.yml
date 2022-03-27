@@ -6,10 +6,10 @@ on:
     branches: [main]
     tags: ['*']
     paths-ignore:
-    - .github
     - README.md
     - .gitignore
-    - manifests
+    - .github/*
+    - manifests/*
 
 env:
   imageName: demo-message
