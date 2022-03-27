@@ -19,12 +19,12 @@ jobs:
     - uses: actions/setup-node@v3.0.0
       with:
         node-version: ${{ env.nodeVersion }}
-    - name: Lint
+    - name: Run Linter
       run: |-
         npm ci; npm run lint:ci
     - uses: dorny/test-reporter@v1.5.0
       with:
-        name: Lint
+        name: Linting Results
         path: lint.xml
         reporter: java-junit
 
@@ -35,12 +35,12 @@ jobs:
     - uses: actions/setup-node@v3.0.0
       with:
         node-version: ${{ env.nodeVersion }}
-    - name: Unit
+    - name: Run Unit Test
       run: |-
         npm ci; npm run test:ci
     - uses: dorny/test-reporter@v1.5.0
       with:
-        name: Unit
+        name: Unit Test Results
         path: test-results.xml
         reporter: java-junit
 
@@ -57,12 +57,12 @@ jobs:
     - name: Build
       run: |-
         docker build . \
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest \
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }} \
           -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
     - name: Push
       run: |-
         docker push \
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest
-          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:latest \
+          -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }} \
           -t ${{ env.containerRegistry }}/${{ env.imageName }}:${{ github.ref_name }}-${{ github.run_id }}
