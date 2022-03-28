@@ -16,7 +16,7 @@ env:
 
 permissions:
   checks: write
-  repository-projects: read
+  contents: read
 
 jobs:
   lint:

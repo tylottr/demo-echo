@@ -18,7 +18,7 @@ env:
 
 permissions:
   status: write
-  repository-projects: read
+  contents: read
 
 jobs:
   lint:
