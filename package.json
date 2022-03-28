@@ -1,7 +1,7 @@
 {
-  "name": "demo-message",
+  "name": "demo-echo",
   "version": "1.0.0",
-  "description": "",
+  "description": "Simple Express app that echos the first value from path, the message query string value, or a default message. A health endpoint is at /health and /404 or /fail returns a 404.",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
@@ -12,7 +12,7 @@
     "lint:ci": "eslint --format junit --output-file lint.xml . --ext .js"
   },
   "keywords": [],
-  "author": "",
+  "author": "Tyla Boff",
   "license": "MIT",
   "dependencies": {
     "express": "^4.17.1",

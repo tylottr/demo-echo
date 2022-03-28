@@ -12,8 +12,8 @@ RUN npm ci
 COPY . .
 
 # Initialize container image
-ARG MESSAGE=
-ENV MESSAGE=${MESSAGE}
+ARG MOTD=
+ENV MOTD=${MOTD}
 
 USER node
 CMD npm start

@@ -1,6 +1,6 @@
-# Demo-message
+# demo-echo
 
-This is a simple application that will print a simple piece of JSON with the MESSAGE environment variable as a value.
+This is a simple application that will print either a default value based on the "MOTD" environment variable, echo the value in the path, or echo the value in `?message=`.
 
 ## Testing
 
@@ -12,4 +12,4 @@ Just run `npm ci` to install packages and `npm start` to run the application on 
 
 ## Docker Build
 
-If building in Docker, run `docker build -t demo-message .` while in this folder to package this application into a Container.
+If building in Docker, run `docker build -t demo-echo .` while in this folder to package this application into a Container.

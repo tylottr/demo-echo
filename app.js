@@ -16,7 +16,7 @@ app.set("port", process.env.PORT || 3000);
 /**
  * Configure env vars
  */
-const MESSAGE = process.env.MESSAGE || "Hello!";
+const MOTD = process.env.MOTD || "Hello there!";
 
 /**
  * Configure middleware
@@ -26,16 +26,22 @@ process.env.MUTE_LOGGER === "true" ? null : app.use(logger("combined"));
 /**
  * Configure returns
  */
-app.get("/", (req, res) => {
-  res.send({
-    message: MESSAGE
-  });
-});
-
 app.get("/health", (req, res) => {
   res.send({
     status: "OK"
   });
+});
+
+app.get("/*", (req, res, next) => {
+  let p = req.path.split("/")[1];
+  // We want this to fail.
+  if (p === "404" || p === "fail") {
+    next();
+    return;
+  }
+
+  let out = req.query["message"] || p || MOTD;
+  res.send(out);
 });
 
 /**
