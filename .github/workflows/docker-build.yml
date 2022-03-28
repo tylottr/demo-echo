@@ -16,6 +16,9 @@ env:
   containerRegistry: tctestacr.azurecr.io
   nodeVersion: 14.x
 
+permissions:
+  status: write
+
 jobs:
   lint:
     runs-on: ubuntu-latest
