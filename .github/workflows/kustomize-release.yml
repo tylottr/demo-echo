@@ -9,7 +9,7 @@ on:
       container_image:
         type: string
         required: true
-        default: tctestacr.azurecr.io/demo-message:main
+        default: tctestacr.azurecr.io/demo-echo:main
       environment_name:
         type: string
         required: true
