@@ -10,6 +10,6 @@ spec:
     app: demo-message
   type: ClusterIP
   ports:
-  - name: http
-    port: 3000
-    targetPort: http
+    - name: http
+      port: 3000
+      targetPort: http

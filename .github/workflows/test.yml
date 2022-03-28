@@ -1,52 +1,52 @@
-name: 'Test'
+name: Test
 
 on:
   workflow_dispatch:
   push:
-    branches: ['*']
-    tags: ['*']
+    branches: ["*"]
+    tags: ["*"]
     paths-ignore:
-    - '**/README.md'
-    - '**/.gitignore'
-    - '**/.github/**'
-    - '**/manifests/**'
+      - "**/README.md"
+      - "**/.gitignore"
+      - "**/.github/**"
+      - "**/manifests/**"
 
 env:
   nodeVersion: 14.x
 
 permissions:
   checks: write
-  repository-projects: read
+  contents: read
 
 jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3.0.0
-      with:
-        node-version: ${{ env.nodeVersion }}
-    - name: Run Linter
-      run: |-
-        npm ci; npm run lint:ci
-    - uses: dorny/test-reporter@v1.5.0
-      with:
-        name: Linting Results
-        path: lint.xml
-        reporter: java-junit
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3.0.0
+        with:
+          node-version: ${{ env.nodeVersion }}
+      - name: Run Linter
+        run: |-
+          npm ci; npm run lint:ci
+      - uses: dorny/test-reporter@v1.5.0
+        with:
+          name: Linting Results
+          path: lint.xml
+          reporter: java-junit
 
   unit:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
-    - uses: actions/setup-node@v3.0.0
-      with:
-        node-version: ${{ env.nodeVersion }}
-    - name: Run Unit Test
-      run: |-
-        npm ci; npm run test:ci
-    - uses: dorny/test-reporter@v1.5.0
-      with:
-        name: Unit Test Results
-        path: test-results.xml
-        reporter: java-junit
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v3.0.0
+        with:
+          node-version: ${{ env.nodeVersion }}
+      - name: Run Unit Test
+        run: |-
+          npm ci; npm run test:ci
+      - uses: dorny/test-reporter@v1.5.0
+        with:
+          name: Unit Test Results
+          path: test-results.xml
+          reporter: java-junit
