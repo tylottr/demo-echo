@@ -9,7 +9,7 @@ on:
       container_image:
         type: string
         required: true
-        default: tctestacr.azurecr.io/demo-echo:main
+        default: ragnaaksacr.azurecr.io/demo-echo:main
       environment_name:
         type: string
         required: true
@@ -17,7 +17,7 @@ on:
       namespace:
         type: string
         required: true
-        default: dev
+        default: ci-apps
 
 env:
   manifestsPath: ${{ github.workspace }}/manifests
