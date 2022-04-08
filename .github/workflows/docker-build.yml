@@ -13,7 +13,7 @@ on:
 
 env:
   imageName: demo-echo
-  containerRegistry: tctestacr.azurecr.io
+  containerRegistry: ragnaaksacr.azurecr.io
   nodeVersion: 14.x
 
 permissions:
